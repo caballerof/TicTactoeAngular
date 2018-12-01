@@ -1,0 +1,18 @@
+$buttonSizeWidth: 120px;
+$buttonSizeHeight: 120px;
+
+
+button {
+  height: $buttonSizeHeight;
+  width: $buttonSizeWidth;
+  margin: 10px 0px 0px 10px;
+  font-size: 500%;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.not-clickable {
+  cursor: not-allowed;
+}
