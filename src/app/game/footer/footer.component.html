@@ -1,0 +1,6 @@
+<div>
+  <h2>
+    Number of movements: <span>{{ (stateService.state$ | async).movements }}</span>
+  </h2>
+  <button (click)="stateService.reset()">Reset</button>
+</div>

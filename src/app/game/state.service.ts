@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 export interface State {
   turn: string;
   values: string[][];
-  itWasWin: Boolean;
+  itWasWin: boolean;
+  movements: number;
 }
 
 @Injectable({
@@ -22,7 +23,8 @@ export class StateService {
         ['-', '-', '-'],
         ['-', '-', '-']
       ],
-      itWasWin: false
+      itWasWin: false,
+      movements: 0
     });
   }
 
@@ -39,13 +41,22 @@ export class StateService {
   }
 
   updateValue(row, col) {
-    //console.log(`Updating value`);
+    // console.log(`Updating value`);
     if (this.state.values[row][col] === '-') {
       const newValue = this.state.turn === 'Player X' ? 'X' : '0';
       const newTurn = this.state.turn === 'Player X' ? 'Player O' : 'Player X';
       this.state.values[row][col] = newValue;
       this.state.turn = newTurn;
-      this.state = this.state;
+      this.state.movements = this.state.movements + 1;
+      // --
+      for (let index = 0; index < this.state.values.length; index++) {
+        console.log(this.state.values[index][index]);
+        console.log(this.state.values[0][index]);
+        console.log(this.state.values[1][index]);
+        console.log(this.state.values[2][index]);
+      }
+      // --
+      this._state$.next(this.state);
     }
   }// End updateValue
 
@@ -57,7 +68,8 @@ export class StateService {
         ['-', '-', '-'],
         ['-', '-', '-']
       ],
-      itWasWin: false
+      itWasWin: false,
+      movements: 0
     };
   }
 
