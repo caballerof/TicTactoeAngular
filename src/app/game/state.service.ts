@@ -1,3 +1,4 @@
+import { State } from './state.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -17,7 +18,7 @@ export class StateService {
 
   constructor() {
     this._state$ = new BehaviorSubject({
-      turn: `Player X`,
+      turn: `Turn of Player 1 X`,
       values: [
         ['-', '-', '-'],
         ['-', '-', '-'],
@@ -42,18 +43,32 @@ export class StateService {
 
   updateValue(row, col) {
     // console.log(`Updating value`);
-    if (this.state.values[row][col] === '-') {
-      const newValue = this.state.turn === 'Player X' ? 'X' : '0';
-      const newTurn = this.state.turn === 'Player X' ? 'Player O' : 'Player X';
+    if (this.state.values[row][col] === '-' && !this.state.itWasWin) {
+      const newValue = this.state.turn === 'Turn of Player 1 X' ? 'X' : 'O';
+      const newTurn = this.state.turn === 'Turn of Player 1 X' ? 'Turn of Player 1 O' : 'Turn of Player 1 X';
       this.state.values[row][col] = newValue;
       this.state.turn = newTurn;
       this.state.movements = this.state.movements + 1;
       // --
-      for (let index = 0; index < this.state.values.length; index++) {
-        console.log(this.state.values[index][index]);
-        console.log(this.state.values[0][index]);
-        console.log(this.state.values[1][index]);
-        console.log(this.state.values[2][index]);
+      if (/XXX|OOO/.test(this.state.values[0][0] + this.state.values[0][1] + this.state.values[0][2])) {
+        this.state.itWasWin = true;
+      } else if (/XXX|OOO/.test(this.state.values[1][0] + this.state.values[1][1] + this.state.values[1][2])) {
+        this.state.itWasWin = true;
+      } else if (/XXX|OOO/.test(this.state.values[2][0] + this.state.values[2][1] + this.state.values[2][2])) {
+        this.state.itWasWin = true;
+      } else if (/XXX|OOO/.test(this.state.values[0][0] + this.state.values[1][0] + this.state.values[2][0])) {
+        this.state.itWasWin = true;
+      } else if (/XXX|OOO/.test(this.state.values[0][1] + this.state.values[1][1] + this.state.values[2][1])) {
+        this.state.itWasWin = true;
+      } else if (/XXX|OOO/.test(this.state.values[0][2] + this.state.values[1][2] + this.state.values[2][2])) {
+        this.state.itWasWin = true;
+      } else if (/XXX|OOO/.test(this.state.values[0][0] + this.state.values[1][1] + this.state.values[2][2])) {
+        this.state.itWasWin = true;
+      } else if (/XXX|OOO/.test(this.state.values[0][2] + this.state.values[1][1] + this.state.values[2][0])) {
+        this.state.itWasWin = true;
+      }
+      if (this.state.itWasWin) {
+        this.state.turn = `There is a winner, ${this.state.turn === 'Turn of Player 1 X' ? 'Player 2 O' : 'Player 1 X'}`;
       }
       // --
       this._state$.next(this.state);
@@ -62,7 +77,7 @@ export class StateService {
 
   reset() {
     this.state = {
-      turn: `Player X`,
+      turn: `Turn of Player 1 X`,
       values: [
         ['-', '-', '-'],
         ['-', '-', '-'],
