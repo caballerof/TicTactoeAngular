@@ -7,6 +7,7 @@ export interface State {
   values: string[][];
   itWasWin: boolean;
   movements: number;
+  player_name: string;
 }
 
 @Injectable({
@@ -25,7 +26,8 @@ export class StateService {
         ['-', '-', '-']
       ],
       itWasWin: false,
-      movements: 0
+      movements: 0,
+      player_name: `Caballero`
     });
   }
 
@@ -84,7 +86,8 @@ export class StateService {
         ['-', '-', '-']
       ],
       itWasWin: false,
-      movements: 0
+      movements: 0,
+      player_name: `Caballero`
     };
   }
 

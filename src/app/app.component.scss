@@ -1,0 +1,13 @@
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  text-align: center;
+  justify-content: center;
+
+  a {
+    margin: 10px;
+    font-size: 30px;
+  }
+
+}

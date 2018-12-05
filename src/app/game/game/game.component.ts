@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { StateService, State } from '../state.service';
+
+import { MyHttpServiceService } from './../../my-http-service.service';
 
 @Component({
   selector: 'app-game',
@@ -7,7 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
-  constructor() { }
+  status = `fetching`;
+
+  constructor(
+    route: ActivatedRoute,
+    stateService: StateService,
+    myHttpService: MyHttpServiceService
+  ) {
+    if (route.snapshot.data.continue) {
+      myHttpService.getSavedGame().subscribe((state: State) => {
+        stateService.state = state;
+        this.status = `success`;
+      }, error => {
+        this.status = error.statusText;
+      });
+    } else {
+      stateService.reset();
+      this.status = `success`;
+    }
+  }
 
   ngOnInit() {
   }
