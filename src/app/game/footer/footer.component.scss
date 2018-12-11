@@ -1,12 +1,18 @@
-div {
+$buttonSizeWidth: 200px;
+$buttonSizeHeight: 80px;
 
+div {
   margin-top: 20px;
 
   button {
-    width: 330px;
-    height: 70px;
-    font-size: 280%;
+    height: $buttonSizeHeight;
+    width: $buttonSizeWidth;
+    font-size: 300%;
+    background-color: #78be;
+    border-radius: 14px;
+    color: #fff;
+    margin: 5px;
+    outline: none;
+    cursor: pointer;
   }
-
 }
-

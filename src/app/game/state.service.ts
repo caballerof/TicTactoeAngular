@@ -14,20 +14,15 @@ export interface State {
   providedIn: 'root'
 })
 export class StateService {
-
   private _state$: BehaviorSubject<State>;
 
   constructor() {
     this._state$ = new BehaviorSubject({
       turn: `Turn of Player 1 X`,
-      values: [
-        ['-', '-', '-'],
-        ['-', '-', '-'],
-        ['-', '-', '-']
-      ],
+      values: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']],
       itWasWin: false,
       movements: 0,
-      player_name: `Caballero`
+      player_name: ``
     });
   }
 
@@ -47,48 +42,96 @@ export class StateService {
     // console.log(`Updating value`);
     if (this.state.values[row][col] === '-' && !this.state.itWasWin) {
       const newValue = this.state.turn === 'Turn of Player 1 X' ? 'X' : 'O';
-      const newTurn = this.state.turn === 'Turn of Player 1 X' ? 'Turn of Player 1 O' : 'Turn of Player 1 X';
+      const newTurn =
+        this.state.turn === 'Turn of Player 1 X'
+          ? 'Turn of Player 1 O'
+          : 'Turn of Player 1 X';
       this.state.values[row][col] = newValue;
       this.state.turn = newTurn;
       this.state.movements = this.state.movements + 1;
       // --
-      if (/XXX|OOO/.test(this.state.values[0][0] + this.state.values[0][1] + this.state.values[0][2])) {
+      if (
+        /XXX|OOO/.test(
+          this.state.values[0][0] +
+            this.state.values[0][1] +
+            this.state.values[0][2]
+        )
+      ) {
         this.state.itWasWin = true;
-      } else if (/XXX|OOO/.test(this.state.values[1][0] + this.state.values[1][1] + this.state.values[1][2])) {
+      } else if (
+        /XXX|OOO/.test(
+          this.state.values[1][0] +
+            this.state.values[1][1] +
+            this.state.values[1][2]
+        )
+      ) {
         this.state.itWasWin = true;
-      } else if (/XXX|OOO/.test(this.state.values[2][0] + this.state.values[2][1] + this.state.values[2][2])) {
+      } else if (
+        /XXX|OOO/.test(
+          this.state.values[2][0] +
+            this.state.values[2][1] +
+            this.state.values[2][2]
+        )
+      ) {
         this.state.itWasWin = true;
-      } else if (/XXX|OOO/.test(this.state.values[0][0] + this.state.values[1][0] + this.state.values[2][0])) {
+      } else if (
+        /XXX|OOO/.test(
+          this.state.values[0][0] +
+            this.state.values[1][0] +
+            this.state.values[2][0]
+        )
+      ) {
         this.state.itWasWin = true;
-      } else if (/XXX|OOO/.test(this.state.values[0][1] + this.state.values[1][1] + this.state.values[2][1])) {
+      } else if (
+        /XXX|OOO/.test(
+          this.state.values[0][1] +
+            this.state.values[1][1] +
+            this.state.values[2][1]
+        )
+      ) {
         this.state.itWasWin = true;
-      } else if (/XXX|OOO/.test(this.state.values[0][2] + this.state.values[1][2] + this.state.values[2][2])) {
+      } else if (
+        /XXX|OOO/.test(
+          this.state.values[0][2] +
+            this.state.values[1][2] +
+            this.state.values[2][2]
+        )
+      ) {
         this.state.itWasWin = true;
-      } else if (/XXX|OOO/.test(this.state.values[0][0] + this.state.values[1][1] + this.state.values[2][2])) {
+      } else if (
+        /XXX|OOO/.test(
+          this.state.values[0][0] +
+            this.state.values[1][1] +
+            this.state.values[2][2]
+        )
+      ) {
         this.state.itWasWin = true;
-      } else if (/XXX|OOO/.test(this.state.values[0][2] + this.state.values[1][1] + this.state.values[2][0])) {
+      } else if (
+        /XXX|OOO/.test(
+          this.state.values[0][2] +
+            this.state.values[1][1] +
+            this.state.values[2][0]
+        )
+      ) {
         this.state.itWasWin = true;
       }
       if (this.state.itWasWin) {
-        this.state.turn = `There is a winner, ${this.state.turn === 'Turn of Player 1 X' ? 'Player 2 O' : 'Player 1 X'}`;
+        this.state.turn = `There is a winner, ${
+          this.state.turn === 'Turn of Player 1 X' ? 'Player 2 O' : 'Player 1 X'
+        }`;
       }
       // --
       this._state$.next(this.state);
     }
-  }// End updateValue
+  } // End updateValue
 
   reset() {
     this.state = {
       turn: `Turn of Player 1 X`,
-      values: [
-        ['-', '-', '-'],
-        ['-', '-', '-'],
-        ['-', '-', '-']
-      ],
+      values: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']],
       itWasWin: false,
       movements: 0,
-      player_name: `Caballero`
+      player_name: ``
     };
   }
-
-}// End Class
+} // End Class

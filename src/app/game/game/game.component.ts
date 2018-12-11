@@ -10,28 +10,35 @@ import { MyHttpServiceService } from './../../my-http-service.service';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-
   status = `fetching`;
+  playerName = '';
+  stateService: StateService;
 
   constructor(
     route: ActivatedRoute,
     stateService: StateService,
     myHttpService: MyHttpServiceService
   ) {
+    this.stateService = stateService;
     if (route.snapshot.data.continue) {
-      myHttpService.getSavedGame().subscribe((state: State) => {
-        stateService.state = state;
-        this.status = `success`;
-      }, error => {
-        this.status = error.statusText;
-      });
+      myHttpService.getSavedGame().subscribe(
+        (state: State) => {
+          stateService.state = state;
+          this.status = `success`;
+        },
+        error => {
+          this.status = error.statusText;
+        }
+      );
     } else {
       stateService.reset();
       this.status = `success`;
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  handleSubmitClick() {
+    this.stateService.state.player_name = this.playerName;
+  }
 }

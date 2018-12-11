@@ -1,14 +1,27 @@
 <div [ngSwitch]="status">
   <div *ngSwitchCase="'success'">
-    <app-header></app-header>
-    <app-board></app-board>
-    <app-footer></app-footer>
+    <div
+      *ngIf="(stateService.state$ | async).player_name != ''; else: elseBlock"
+    >
+      <app-header></app-header>
+      <app-board></app-board>
+      <app-footer></app-footer>
+    </div>
+    <ng-template #elseBlock>
+      <form action="">
+        <label>Introduce Player Name: </label>
+        <input
+          type="text"
+          [(ngModel)]="playerName"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <input type="submit" value="Submit" (click)="handleSubmitClick()" />
+      </form>
+    </ng-template>
   </div>
-  <div *ngSwitchCase="'fetching'">
-    Loading...
-  </div>
+  <div class="loader" *ngSwitchCase="'fetching'"></div>
   <div *ngSwitchDefault>
     There is an error in the backend communication. <br />
-    Error: {{status}}
+    Error: {{ status }}
   </div>
 </div>
