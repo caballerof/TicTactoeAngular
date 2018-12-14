@@ -9,7 +9,7 @@ import { IndexComponent } from './index/index.component';
 import { GameComponent } from './game/game/game.component';
 
 import { HttpClientModule } from '@angular/common/http';
-
+import { SaveGameComponent } from './save-game/save-game.component';
 
 const appRoutes: Routes = [
   {
@@ -26,17 +26,18 @@ const appRoutes: Routes = [
     data: { continue: true }
   },
   {
+    path: 'save',
+    component: SaveGameComponent
+  },
+  {
     path: '',
     redirectTo: '/index',
     pathMatch: 'full'
-  },
+  }
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    IndexComponent
-  ],
+  declarations: [AppComponent, IndexComponent, SaveGameComponent],
   imports: [
     BrowserModule,
     GameModule,
@@ -46,4 +47,4 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

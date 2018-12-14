@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./square.component.scss']
 })
 export class SquareComponent implements OnInit {
-
   @Input() row: number;
   @Input() column: number;
 
@@ -16,12 +15,10 @@ export class SquareComponent implements OnInit {
     this._stateService = stateService;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   _handleSquareClick() {
-    console.log(`Square clicked, row: ${this.row} column: ${this.column}`);
+    // console.log(`Square clicked, row: ${this.row} column: ${this.column}`);
     this._stateService.updateValue(this.row, this.column);
   }
-
-}// End Class
+} // End Class

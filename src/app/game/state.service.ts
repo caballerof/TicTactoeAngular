@@ -1,3 +1,4 @@
+import { MyHttpServiceService } from './../my-http-service.service';
 import { State } from './state.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -16,7 +17,7 @@ export interface State {
 export class StateService {
   private _state$: BehaviorSubject<State>;
 
-  constructor() {
+  constructor(public myHttpService: MyHttpServiceService) {
     this._state$ = new BehaviorSubject({
       turn: `Turn of Player 1 X`,
       values: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']],
@@ -134,4 +135,16 @@ export class StateService {
       player_name: ``
     };
   }
+
+  saveStateGame() {
+    // console.log(this.state);
+    this.myHttpService.putGame(this.state).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  } // End saveStateGame
 } // End Class
