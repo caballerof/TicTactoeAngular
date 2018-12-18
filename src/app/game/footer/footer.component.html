@@ -4,5 +4,5 @@
     <span>{{ (stateService.state$ | async).movements }}</span>
   </h2>
   <button (click)="stateService.reset()">Reset</button>
-  <button (click)="stateService.saveStateGame()">Save</button>
+  <button (click)="saveGame()">Save</button>
 </div>

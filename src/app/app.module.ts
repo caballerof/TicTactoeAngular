@@ -1,3 +1,4 @@
+import { SaveFormComponent } from './game/save-form/save-form.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -10,6 +11,7 @@ import { GameComponent } from './game/game/game.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { SaveGameComponent } from './save-game/save-game.component';
+
 
 const appRoutes: Routes = [
   {
@@ -28,6 +30,10 @@ const appRoutes: Routes = [
   {
     path: 'save',
     component: SaveGameComponent
+  },
+  {
+    path: 'saveform',
+    component: SaveFormComponent
   },
   {
     path: '',

@@ -2,6 +2,7 @@ import { MyHttpServiceService } from './../my-http-service.service';
 import { State } from './state.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import uuid from 'uuid';
 
 export interface State {
   turn: string;
@@ -9,6 +10,9 @@ export interface State {
   itWasWin: boolean;
   movements: number;
   player_name: string;
+  uuid: string;
+  sName: string;
+  savedGames: any[];
 }
 
 @Injectable({
@@ -23,7 +27,10 @@ export class StateService {
       values: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']],
       itWasWin: false,
       movements: 0,
-      player_name: ``
+      player_name: ``,
+      uuid: uuid(),
+      sName: ``,
+      savedGames: []
     });
   }
 
@@ -54,64 +61,64 @@ export class StateService {
       if (
         /XXX|OOO/.test(
           this.state.values[0][0] +
-            this.state.values[0][1] +
-            this.state.values[0][2]
+          this.state.values[0][1] +
+          this.state.values[0][2]
         )
       ) {
         this.state.itWasWin = true;
       } else if (
         /XXX|OOO/.test(
           this.state.values[1][0] +
-            this.state.values[1][1] +
-            this.state.values[1][2]
+          this.state.values[1][1] +
+          this.state.values[1][2]
         )
       ) {
         this.state.itWasWin = true;
       } else if (
         /XXX|OOO/.test(
           this.state.values[2][0] +
-            this.state.values[2][1] +
-            this.state.values[2][2]
+          this.state.values[2][1] +
+          this.state.values[2][2]
         )
       ) {
         this.state.itWasWin = true;
       } else if (
         /XXX|OOO/.test(
           this.state.values[0][0] +
-            this.state.values[1][0] +
-            this.state.values[2][0]
+          this.state.values[1][0] +
+          this.state.values[2][0]
         )
       ) {
         this.state.itWasWin = true;
       } else if (
         /XXX|OOO/.test(
           this.state.values[0][1] +
-            this.state.values[1][1] +
-            this.state.values[2][1]
+          this.state.values[1][1] +
+          this.state.values[2][1]
         )
       ) {
         this.state.itWasWin = true;
       } else if (
         /XXX|OOO/.test(
           this.state.values[0][2] +
-            this.state.values[1][2] +
-            this.state.values[2][2]
+          this.state.values[1][2] +
+          this.state.values[2][2]
         )
       ) {
         this.state.itWasWin = true;
       } else if (
         /XXX|OOO/.test(
           this.state.values[0][0] +
-            this.state.values[1][1] +
-            this.state.values[2][2]
+          this.state.values[1][1] +
+          this.state.values[2][2]
         )
       ) {
         this.state.itWasWin = true;
       } else if (
         /XXX|OOO/.test(
           this.state.values[0][2] +
-            this.state.values[1][1] +
-            this.state.values[2][0]
+          this.state.values[1][1] +
+          this.state.values[2][0]
         )
       ) {
         this.state.itWasWin = true;
@@ -119,7 +126,7 @@ export class StateService {
       if (this.state.itWasWin) {
         this.state.turn = `There is a winner, ${
           this.state.turn === 'Turn of Player 1 X' ? 'Player 2 O' : 'Player 1 X'
-        }`;
+          }`;
       }
       // --
       this._state$.next(this.state);
@@ -127,14 +134,20 @@ export class StateService {
   } // End updateValue
 
   reset() {
+    const uuidGenerated = uuid();
     this.state = {
       turn: `Turn of Player 1 X`,
       values: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']],
       itWasWin: false,
       movements: 0,
-      player_name: ``
+      player_name: ``,
+      uuid: `${uuidGenerated}`,
+      sName: `${uuidGenerated}`,
+      savedGames: []
     };
   }
+
+  
 
   saveStateGame() {
     // console.log(this.state);
@@ -147,4 +160,7 @@ export class StateService {
       }
     );
   } // End saveStateGame
+
+  
+
 } // End Class

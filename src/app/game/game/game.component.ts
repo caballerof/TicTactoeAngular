@@ -34,9 +34,20 @@ export class GameComponent implements OnInit {
       stateService.reset();
       this.status = `success`;
     }
+
+    // route.params.subscribe(params => {
+    //   if (params['id']) {
+    //     console.log(params['id']);
+    //   }
+    //   else {
+    //     console.log(`No parametro`);
+    //   }
+    // })
+
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   handleSubmitClick() {
     this.stateService.state.player_name = this.playerName;

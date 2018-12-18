@@ -1,13 +1,7 @@
 <div class="save-games">
-  <ol>
-    <li>
-      <span>Guardado</span> <button>Continue</button><button>Delete</button>
-    </li>
-    <li>
-      <span>Guardado</span> <button>Continue</button> <button>Delete</button>
-    </li>
-    <li>
-      <span>Guardado</span> <button>Continue</button> <button>Delete</button>
-    </li>
+  <ol >
+    <li *ngFor="let gameSaved of savedGames; index as i ">
+      <span>{{gameSaved.sName}}</span> <button (click)="continueGame(i)" >Continue</button><button>Delete</button>
+    </li>    
   </ol>
 </div>

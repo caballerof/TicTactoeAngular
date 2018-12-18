@@ -26,4 +26,12 @@ export class MyHttpServiceService {
       httpOptions
     );
   }
+
+  /**
+   * Get the JSON with the saved games from the server.
+   */
+  getSavedGames(){
+    return this.httpClient.get(`https://api.myjson.com/bins/19mxy8`);
+  }// End getSavedGames
+
 } // End Class

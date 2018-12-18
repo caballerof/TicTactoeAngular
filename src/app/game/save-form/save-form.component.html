@@ -1,0 +1,9 @@
+<form action="">
+  <label>Introduce game name: </label>
+  <input
+    type="text"
+    [(ngModel)]="gameName"    
+    [ngModelOptions]="{ standalone: true }"
+  />
+  <input type="submit" value="Submit"  (click)="handleSubmitClick()" />
+</form>
